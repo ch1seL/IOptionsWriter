@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>appsettings.json writer</Description>
+    <Copyright>ch1seL © 2018</Copyright>
+    <PackageProjectUrl>https://github.com/ch1seL/IOptionsWriter/blob/master/README.md</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ch1seL/IOptionsWriter</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <Authors>ch1seL</Authors>
+    <Company>ch1seL</Company>
+    <PackageLicenseUrl>https://github.com/ch1seL/IOptionsWriter/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>appsettings aspnet core writer json</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

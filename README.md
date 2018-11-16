@@ -18,7 +18,7 @@ section - your configuration section
 
 settingsFile - default appsettings.json
 
-reloadAfterWrite - you can enable this option if you have problems detecting file changes or when you add the settings file with false value of reloadOnChange parameter (builder.AddJsonFile(appsettings.json, optional: false, reloadOnChange: false);)
+reloadAfterWrite - you can enable this option if you have problems detecting file changes or if add the settings file with false value of reloadOnChange parameter (builder.AddJsonFile(appsettings.json, optional: false, reloadOnChange: false);)
 
 ### Simple sample
 

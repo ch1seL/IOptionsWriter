@@ -56,7 +56,7 @@ public class MyController : Controller {
 
     [HttpPut]
     public IActionResult SetMyOptionValue(string value) {
-        _myOptionsAccessor.Update(options => options.MyOptions = value);
+        _myOptionsAccessor.Update(options => options.MyOption = value);
     }
 }
 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>appsettings.json writer</Description>
     <Copyright>ch1seL © 2018</Copyright>
@@ -13,6 +13,7 @@
     <Company>ch1seL</Company>
     <PackageLicenseUrl>https://github.com/ch1seL/IOptionsWriter/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>appsettings aspnet core writer json</PackageTags>
+    <PackageReleaseNotes>Easy way to write appsettings.json or other configuration json file</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

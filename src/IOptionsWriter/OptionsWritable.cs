@@ -50,7 +50,7 @@ namespace IOptionsWriter
 			JObject jObject;
 			if (!File.Exists(fullPath))
 			{
-				var n = new T();
+				T n = Value;
 				applyChanges(n);
 				jObject = new JObject {{_section, JObject.FromObject(n)}};
 			}

@@ -52,7 +52,7 @@ namespace IOptionsWriter
 			{
 				var n = new T();
 				applyChanges(n);
-				jObject = JObject.FromObject(n);
+				jObject = new JObject {{_section, JObject.FromObject(n)}};
 			}
 			else
 			{

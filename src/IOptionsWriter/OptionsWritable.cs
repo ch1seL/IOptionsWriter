@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using JStreamAsyncNet;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -44,9 +43,12 @@ namespace IOptionsWriter
 
 		public async Task Update(Action<T> applyChanges)
 		{
-			IFileInfo settingsFileInfo = _environment.ContentRootFileProvider.GetFileInfo(_settingsFile);
+			var fullPath = Path.IsPathRooted(_settingsFile)
+				? _settingsFile
+				: _environment.ContentRootFileProvider.GetFileInfo(_settingsFile).PhysicalPath;
+
 			JObject jObject;
-			if (!settingsFileInfo.Exists)
+			if (!File.Exists(fullPath))
 			{
 				var n = new T();
 				applyChanges(n);
@@ -54,7 +56,7 @@ namespace IOptionsWriter
 			}
 			else
 			{
-				jObject = await File.OpenRead(settingsFileInfo.PhysicalPath).ToObject<JObject>();
+				jObject = await File.OpenRead(fullPath).ToObject<JObject>();
 				var sectionObject = jObject.TryGetValue(_section, out JToken section)
 					? JsonConvert.DeserializeObject<T>(section.ToString())
 					: Value ?? new T();
@@ -62,7 +64,7 @@ namespace IOptionsWriter
 				jObject[_section] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
 			}
 
-			await File.Create(settingsFileInfo.PhysicalPath).FromObject(jObject,
+			await File.Create(fullPath).FromObject(jObject,
 				JsonSerializer.Create(new JsonSerializerSettings {Formatting = Formatting.Indented}));
 
 			if (_reloadAfterWrite) _configurationRoot.Reload();

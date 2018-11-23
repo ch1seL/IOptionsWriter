@@ -5,7 +5,7 @@ Easy way to write appsettings.json or other configuration json file
 ## How to use
 
 ```powershell
-Install-Package IOptionsWriter -Version 0.0.2
+Install-Package IOptionsWriter -Version 0.0.3
 ```
 
 ### Using

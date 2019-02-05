@@ -56,7 +56,7 @@ namespace IOptionsWriter
 			}
 			else
 			{
-				jObject = await File.OpenRead(fullPath).ToObject<JObject>();
+				jObject = await File.OpenRead(fullPath).ToObjectAsync<JObject>();
 				var sectionObject = jObject.TryGetValue(_section, out JToken section)
 					? JsonConvert.DeserializeObject<T>(section.ToString())
 					: Value ?? new T();
@@ -64,7 +64,7 @@ namespace IOptionsWriter
 				jObject[_section] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
 			}
 
-			await File.Create(fullPath).FromObject(jObject,
+			await File.Create(fullPath).WriteFromObjectAsync(jObject,
 				JsonSerializer.Create(new JsonSerializerSettings {Formatting = Formatting.Indented}));
 
 			if (_reloadAfterWrite) _configurationRoot.Reload();

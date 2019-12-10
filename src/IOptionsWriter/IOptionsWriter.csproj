@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Version>0.1.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>appsettings.json writer</Description>
@@ -14,13 +14,14 @@
     <PackageLicenseUrl>https://github.com/ch1seL/IOptionsWriter/blob/master/LICENSE</PackageLicenseUrl>
     <PackageTags>appsettings aspnet core writer json</PackageTags>
     <PackageReleaseNotes>Easy way to write appsettings.json or other configuration json file</PackageReleaseNotes>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JStreamAsyncNet" Version="0.1.3" />
+    <PackageReference Include="JStreamAsyncNet" Version="4.7.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.0" />
   </ItemGroup>
 
 </Project>

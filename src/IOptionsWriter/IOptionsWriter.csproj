@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>4.7.0</Version>
+    <Version>4.7.0.1</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>appsettings.json writer</Description>
     <Copyright>ch1seL © 2019</Copyright>

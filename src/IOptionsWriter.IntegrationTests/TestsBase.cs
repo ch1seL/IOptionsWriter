@@ -1,6 +1,4 @@
 using System.IO;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace IOptionsWriter.IntegrationTests
@@ -13,13 +11,10 @@ namespace IOptionsWriter.IntegrationTests
         {
             //Ensure that settings file is not exists
             File.Delete("appsettings.json");
-            
+
             //create test host
             TestHost = Host.CreateDefaultBuilder()
-                .ConfigureServices(services =>
-                {
-                    services.ConfigureWritable<TestOptions>();
-                })
+                .ConfigureServices(services => { services.ConfigureWritable<TestOptions>(); })
                 .Build();
         }
     }

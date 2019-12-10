@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using JStreamAsyncNet;
@@ -16,11 +15,11 @@ namespace IOptionsWriter
     {
         private readonly ConfigurationRoot _configurationRoot;
         private readonly IHostingEnvironment _environment;
-        private readonly IOptionsMonitor<T> _options;
         private readonly bool _forceReloadAfterWrite;
+        private readonly IOptionsMonitor<T> _options;
         private readonly string _section;
         private readonly string _settingsFile;
-        
+
         public OptionsWritable(IHostingEnvironment environment,
             IOptionsMonitor<T> options,
             ConfigurationRoot configurationRoot,
@@ -36,8 +35,6 @@ namespace IOptionsWriter
             _forceReloadAfterWrite = forceReloadAfterWrite;
         }
 
-        public T Value => _options.CurrentValue;
-
         public T Get(string name)
         {
             return _options.Get(name);
@@ -50,25 +47,24 @@ namespace IOptionsWriter
                 : _environment.ContentRootFileProvider.GetFileInfo(_settingsFile).PhysicalPath;
 
             ExpandoObject config;
+            applyChanges(Value);
+
             if (!File.Exists(fullPath))
             {
-                var value = Value;
-                applyChanges(value);
                 config = new ExpandoObject();
-                config.TryAdd(_section, value);
+                ((IDictionary<string, object>) config).Add(_section, Value);
             }
             else
             {
                 config = await File.OpenRead(fullPath).ToObjectAsync<ExpandoObject>();
-                var sectionObject = (T) config.SingleOrDefault(p => string.Equals(p.Key, _section)).Value;
-                applyChanges(sectionObject);
-                config.Remove(_section, out _);
-                config.TryAdd(_section, sectionObject);
+                ((IDictionary<string, object>) config)[_section] = Value;
             }
 
             await File.Create(fullPath).WriteFromObjectAsync(config, new JsonSerializerOptions {WriteIndented = true});
 
             if (_forceReloadAfterWrite) _configurationRoot.Reload();
         }
+
+        public T Value => _options.CurrentValue;
     }
 }

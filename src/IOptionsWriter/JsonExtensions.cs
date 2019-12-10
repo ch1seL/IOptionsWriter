@@ -22,5 +22,18 @@ namespace IOptionsWriter
             if (document == null) throw new ArgumentNullException(nameof(document));
             return document.RootElement.ToObject<T>(options);
         }
+
+        public static T ToObject<T>(this JsonProperty property, JsonSerializerOptions options = null)
+        {
+            var bufferWriter = new ArrayBufferWriter<byte>();
+            using (var writer = new Utf8JsonWriter(bufferWriter))
+            {
+                writer.WriteStartObject();
+                property.WriteTo(writer);
+                writer.WriteEndObject();
+            }
+
+            return JsonSerializer.Deserialize<T>(bufferWriter.WrittenSpan, options);
+        }
     }
 }

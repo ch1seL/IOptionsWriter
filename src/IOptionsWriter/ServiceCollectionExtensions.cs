@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -14,7 +13,7 @@ namespace IOptionsWriter
             where TOptions : class, new()
         {
             sectionName??=typeof(TOptions).Name;
-            
+
             services.AddOptions();
             services.AddSingleton<IOptionsChangeTokenSource<TOptions>>(provider =>
             {
@@ -24,7 +23,8 @@ namespace IOptionsWriter
             services.AddSingleton<IConfigureOptions<TOptions>>(provider =>
             {
                 var configurationSection = provider.GetRequiredService<IConfiguration>().GetSection(sectionName);
-                return new NamedConfigureFromConfigurationOptions<TOptions>(sectionName, configurationSection,_ => {});
+                return new NamedConfigureFromConfigurationOptions<TOptions>(sectionName, configurationSection,
+                    _ => { });
             });
             services.AddScoped<IOptionsWritable<TOptions>>(provider =>
             {

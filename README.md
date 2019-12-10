@@ -50,7 +50,7 @@ Controllers/MyController.cs:
 public class MyController : Controller {
     private readonly IOptionsWritable<MyOptions> _myOptionsAccessor;
 
-    public TeamsController(IOptionsWritable<MyOptions> myOptionsAccessor) {
+    public MyController(IOptionsWritable<MyOptions> myOptionsAccessor) {
         _myOptionsAccessor = myOptionsAccessor;
     }
 

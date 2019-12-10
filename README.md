@@ -4,17 +4,27 @@ Easy way to write appsettings.json or other configuration json file
 
 ## How to use
 
+### Installation
+
+#### Nuget Package Manager Console:
+
 ```powershell
-Install-Package IOptionsWriter -Version 0.1.2
+Install-Package IOptionsWriter
 ```
 
+#### .Net CLI:
+```powershell
+dotnet add package IOptionsWriter
+```
 ### Using
 
 ```c#
-IServiceCollection.ConfigureWritable(IConfigurationSection section, string settingsFile = "appsettings.json", bool reloadAfterWrite = false)
+IServiceCollection.ConfigureWritable<TOptions>(string sectionName = null, string settingsFile = "appsettings.json", bool reloadAfterWrite = false)
 ```
 
-section - your configuration section
+TOptions - type of your settings
+
+sectionName - your configuration section name(default: TOptions type name)
 
 settingsFile - default appsettings.json
 
@@ -39,7 +49,7 @@ public void ConfigureServices(IServiceCollection services)
 {
     services
         .AddOptions()
-        .ConfigureWritable<MyOptions>(Configuration.GetSection(nameof(MySettings)));
+        .ConfigureWritable<MySettings>();
 }
 ```
 
@@ -48,9 +58,9 @@ Controllers/MyController.cs:
 ```c#
 [Controller]
 public class MyController : Controller {
-    private readonly IOptionsWritable<MyOptions> _myOptionsAccessor;
+    private readonly IOptionsWritable<MySettings> _myOptionsAccessor;
 
-    public MyController(IOptionsWritable<MyOptions> myOptionsAccessor) {
+    public MyController(IOptionsWritable<MySettings> myOptionsAccessor) {
         _myOptionsAccessor = myOptionsAccessor;
     }
 
